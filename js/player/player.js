@@ -3,19 +3,21 @@ import DataBus from "../databus.js";
 
 let databus = new DataBus();
 //每秒播放次数
-let speed = 2;
+let speed =2;
 export default class Player extends BaseSprite{
-  constructor(){
+  constructor(x , y){
     super();
+    this.x = x;
+    this.y = y;
 
-    this.animationimg = [848, 892,936,980,1024];
+    this.animationimg = [848, 892,936,980];
     this.index = 0;
   }
 
   drawToCanvas(ctx){
     let length = this.animationimg.length;
 
-    if (databus.frame % (60 / (speed * length))==0 ){
+    if (databus.frame % parseInt(60 / (speed * length))==0 ){
       this.index++;
     }
     if (this.index >= length) {
@@ -28,28 +30,11 @@ export default class Player extends BaseSprite{
       3,
       45,
       45,
-      0,
-      0,
+      this.x,
+      this.y,
       45,
       45
     );
   
-    // ctx.drawImage(
-    //   this.img,
-    //   893,
-    //   3,
-    //   45,
-    //   45,
-    //   0,
-    //   0,
-    //   45,
-    //   45
-    // );
-
-    // ctx.drawImage(
-    //   this.img,
-    //   0,
-    //   100
-    // );
   }
 }

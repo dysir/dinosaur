@@ -16,7 +16,7 @@ export default class main{
 
   restart(){
     this.bg = new BackGround(ctx);
-    this.dinosaur = new Player();
+    this.dinosaur = new Player(20 , 200);
 
     window.cancelAnimationFrame(this.aniId);
 
