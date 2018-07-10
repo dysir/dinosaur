@@ -1,6 +1,8 @@
 import BaseSprite from "./base/basesprite.js";
-import Databus from "./databus.js"
 import BackGround from "./runtime/background.js";
+import Databus from "./databus.js"
+import Player from "./player/player.js"
+
 let ctx = canvas.getContext('2d');
 let databus = new Databus();
 
@@ -10,24 +12,20 @@ export default class main{
     this.aniId = 0;
     this.restart();
 
-    // let dinosaur = new BaseSprite();
-    // dinosaur.img.onload = function(){
-    //   dinosaur.getDinosaur(ctx);
-    // }
-
   }
 
   restart(){
-    let bg = new BackGround(ctx);
+    this.bg = new BackGround(ctx);
+    this.dinosaur = new Player();
 
-    // window.cancelAnimationFrame(this.aniId);
+    window.cancelAnimationFrame(this.aniId);
 
-    // this.bindLoop = this.loop.bind(this)
+    this.bindLoop = this.loop.bind(this)
 
-    // this.aniId = window.requestAnimationFrame(
-    //   this.bindLoop,
-    //   canvas
-    // )
+    this.aniId = window.requestAnimationFrame(
+      this.bindLoop,
+      canvas
+    )
   }
 
 
@@ -35,10 +33,13 @@ export default class main{
 
   }
   render(){
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    this.bg.drawToCanvas(ctx);
+    this.dinosaur.drawToCanvas(ctx);
   }
   loop(){
     databus.frame++;
+  
     this.update();
     this.render();
     this.aniId = window.requestAnimationFrame(

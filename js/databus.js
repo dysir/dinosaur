@@ -5,11 +5,13 @@ export default class Databus{
     if(instance){
       return instance;
     }
+    instance =this;
     this.pool = new Pool();
     this.reset();
   }
   reset(){
     this.frame = 0;
-    
+    this.score = 0;
+    this.enemy = [];
   }
 }
