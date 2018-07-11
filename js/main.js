@@ -2,6 +2,7 @@ import BaseSprite from "./base/basesprite.js";
 import BackGround from "./runtime/background.js";
 import Databus from "./databus.js"
 import Player from "./player/player.js"
+import Jump from "./base/jump.js"
 
 let ctx = canvas.getContext('2d');
 let databus = new Databus();
@@ -17,6 +18,7 @@ export default class main{
   restart(){
     this.bg = new BackGround(ctx);
     this.dinosaur = new Player(20 , 200);
+    this.jump = new Jump(200);
 
     window.cancelAnimationFrame(this.aniId);
 
@@ -35,6 +37,9 @@ export default class main{
   render(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     this.bg.drawToCanvas(ctx);
+    this.jump.getCurrentLocal();
+    this.dinosaur.y = this.jump.y;
+    // console.log(this.Jump.y);
     this.dinosaur.drawToCanvas(ctx);
   }
   loop(){
