@@ -1,0 +1,66 @@
+import DataBus from "../databus.js"
+import Pool from "../base/pool.js"
+import BaseSprite from "../base/basesprite.js";
+
+let databus = new DataBus();
+
+export default class Tree {
+  constructor() {
+    let BaseSprit = new BaseSprite();
+    this.img = BaseSprit;
+    this.visible = false;
+    this.treelist = [
+        [
+          [230, 3, 16, 35, 0, 0, 16, 35],
+          [246, 3, 16, 35, 0, 0, 16, 35],
+          [262, 3, 16, 35, 0, 0, 16, 35],
+          [278, 3, 16, 35, 0, 0, 16, 35],
+          [296, 3, 16, 35, 0, 0, 16, 35],
+          [312, 3, 16, 35, 0, 0, 16, 35],
+        ],
+        [
+          [331, 3, 26, 46, 0, 0, 26, 46],
+          [357, 3, 26, 46, 0, 0, 26, 46],
+          [382, 3, 26, 46, 0, 0, 26, 46],
+          [408, 3, 24, 46, 0, 0, 24, 46],
+          [432, 3, 49, 46, 0, 0, 49, 46],
+        ]
+      ];
+
+    let index1 = parseInt(Math.random() * this.treelist.length );
+    let index2 = parseInt(Math.random() * this.treelist[index1].length);
+    [...this.current] = this.treelist[index1][index2];
+
+    this.current[5] = 200;
+    
+    this.x = this.current[4];
+    this.y = this.current[5];
+    this.width = this.current[2];
+    this.pool = new Pool();
+  }
+
+  drawToCanvas(ctx){
+    if (!this.visible){
+      return
+    }
+
+    ctx.drawImage(
+      this.img,
+      ...this.current
+    );
+  }
+
+  update(){
+    this.x--
+    this.current[4] = this.x;
+    if(this.x +this.width <0){
+      this.visible = false;
+      let index1 = parseInt(Math.random() * this.treelist.length);
+      let index2 = parseInt(Math.random() * this.treelist[index1].length);
+      this.current = this.treelist[index1][index2];
+      databus.gtreelist.shift();
+      this.pool.recover("tree" , this);
+    }
+  }
+
+}
