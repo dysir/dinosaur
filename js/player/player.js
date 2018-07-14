@@ -18,6 +18,14 @@ export default class Player{
     this.index = 0;
     this.play = false;
     this.initEvent();
+
+    this.width = 45;
+    this.height = 45;
+  }
+
+  ifTouch(sp){
+    return !!((this.x + this.width > sp.x && this.x + this.width < sp.x + sp.width && this.y + this.height > sp.y) || 
+    (this.x > sp.x && this.x < sp.x + sp.width && this.y + this.height > sp.y))
   }
 
   drawToCanvas(ctx){
@@ -29,17 +37,18 @@ export default class Player{
     if (this.index >= length) {
       this.index = 0;
     }
- 
+    ctx.strokeStyle = "#FF0000";
+    ctx.strokeRect(this.x, this.y, this.width, this.height);
     ctx.drawImage(
       this.img,
       this.animationimg[this.index],
       3,
-      45,
-      45,
+      this.width ,
+      this.height,
       this.x,
       this.y,
-      45,
-      45
+      this.width ,
+      this.height
     );
   
   }

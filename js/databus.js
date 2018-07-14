@@ -8,6 +8,7 @@ export default class Databus{
     instance =this;
     this.pool = new Pool();
     this.reset();
+    this.gamestart = true;
   }
   reset(){
     //每秒跳跃次数
@@ -19,6 +20,8 @@ export default class Databus{
     //障碍物出现频率  帧/个
     this.enmeysecond = 120;
 
+
+    this.gamespeed = 3;
     this.frame = 0;
     this.score = 0;
 

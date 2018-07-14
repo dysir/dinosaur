@@ -36,7 +36,7 @@ export default class BackGround{
       screenWidth+1,
       50
     );
-    this.startx-=3
+    this.startx -= databus.gamespeed
     if (this.startx < -screenWidth){
       this.startx = 0;
     }

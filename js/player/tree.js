@@ -1,7 +1,8 @@
 import DataBus from "../databus.js"
 import Pool from "../base/pool.js"
 import BaseSprite from "../base/basesprite.js";
-
+const screenWidth = window.innerWidth
+const screenHeight = window.innerHeight
 let databus = new DataBus();
 
 export default class Tree {
@@ -30,9 +31,13 @@ export default class Tree {
     let index1 = parseInt(Math.random() * this.treelist.length );
     let index2 = parseInt(Math.random() * this.treelist[index1].length);
     [...this.current] = this.treelist[index1][index2];
+    if(index1 == 0){
+      this.current[5] = 215;
+    }else{
+      this.current[5] = 200;      
+    }
+    this.current[4] = screenWidth;
 
-    this.current[5] = 200;
-    
     this.x = this.current[4];
     this.y = this.current[5];
     this.width = this.current[2];
@@ -43,15 +48,17 @@ export default class Tree {
     if (!this.visible){
       return
     }
-
     ctx.drawImage(
       this.img,
       ...this.current
     );
+
+    ctx.strokeStyle = "#FF0000";
+    ctx.strokeRect(this.x, this.y, this.width, this.current[3]);
   }
 
   update(){
-    this.x--
+    this.x -= databus.gamespeed
     this.current[4] = this.x;
     if(this.x +this.width <0){
       this.visible = false;
