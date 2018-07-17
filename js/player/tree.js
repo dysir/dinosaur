@@ -42,6 +42,7 @@ export default class Tree {
     this.y = this.current[5];
     this.width = this.current[2];
     this.pool = new Pool();
+    this.linelist = [];
   }
 
   drawToCanvas(ctx){
@@ -52,9 +53,13 @@ export default class Tree {
       this.img,
       ...this.current
     );
-
-    ctx.strokeStyle = "#FF0000";
-    ctx.strokeRect(this.x, this.y, this.width, this.current[3]);
+    // ctx.strokeStyle = "#FF0000";
+    // ctx.strokeRect(this.x+2, this.y+2, this.width-4, this.current[3]-4);
+    this.linelist = [
+      [this.x + 2, this.y + 2+ this.current[3]],
+      [this.x + 2, this.y + 2],
+      [this.x +this.width - 2, this.y + 2 ],
+    ];
   }
 
   update(){

@@ -40,8 +40,6 @@ export default class Pool {
    * 方便后续继续使用
    */
   recover(name, instance) {
-  
     this.getPoolBySign(name).push(instance)
-    console.log(this[__.poolDic][name]);
   }
 }

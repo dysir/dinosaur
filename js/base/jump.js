@@ -1,6 +1,6 @@
 import DataBus from "../databus.js"
 export default class Jump{
-  constructor(online  , maxheight = 200  , ttl =2 ,loop = false){
+  constructor(online  , maxheight = 200  , ttl =60 ,loop = false){
     //水平线
     this.online = online;
     //最大高度
@@ -8,7 +8,9 @@ export default class Jump{
     //执行时间
     this.ttl = ttl;
     this.timer = 0;
-    let frame = ttl*30;
+    //執行一次跳躍的陣 最大不超鍋60
+    
+    let frame = ttl;
     this.g = Math.ceil(2000*(this.maxheight)/Math.pow(frame , 2))/1000  ;
 
     this.initial = (this.g)*(frame);

@@ -13,14 +13,15 @@ export default class Player{
 
     this.x = x;
     this.y = y;
-    this.jobj = new Jump(this.y, databus.playheight );
+    this.jobj = new Jump(this.y, databus.playheight, speed);
     this.animationimg = [ 892,936,980];
     this.index = 0;
     this.play = false;
     this.initEvent();
 
-    this.width = 45;
+    this.width = 44;
     this.height = 45;
+    this.linelist = [];
   }
 
   ifTouch(sp){
@@ -31,14 +32,35 @@ export default class Player{
   drawToCanvas(ctx){
     let length = this.animationimg.length;
 
-    if (databus.frame % parseInt(60 / (speed * length))==0 ){
+    if (databus.frame % databus.runspeed==0 ){
       this.index++;
     }
     if (this.index >= length) {
       this.index = 0;
     }
-    ctx.strokeStyle = "#FF0000";
-    ctx.strokeRect(this.x, this.y, this.width, this.height);
+    // ctx.strokeStyle = "#FF0000";
+    // ctx.strokeRect(this.x, this.y, this.width, this.height);
+  
+    // ctx.beginPath();
+    // ctx.moveTo(this.x+2, this.y + this.height / 4);
+    // ctx.lineTo(this.x + this.width/2, this.y+2);
+    // ctx.lineTo(this.x + this.width-2, this.y-2);
+    // ctx.lineTo(this.x + this.width-2, this.y + this.height / 4-2);
+    // ctx.lineTo(this.x + this.width / 2-2, this.y + this.height-2);
+    // ctx.lineTo(this.x + this.width / 4, this.y + this.height-2);
+    // ctx.lineTo(this.x+2 , this.y+this.height/2);
+    // ctx.strokeStyle = "red";
+    // ctx.stroke();
+
+    this.linelist = [
+      [this.x + 2, this.y + this.height / 4],
+      [this.x + this.width / 2, this.y + 2],
+      [this.x + this.width - 2, this.y - 2],
+      [this.x + this.width - 2, this.y + this.height / 4 - 2],
+      [this.x + this.width / 2 - 2, this.y + this.height - 2],
+      [this.x + this.width / 4, this.y + this.height - 2],
+      [this.x + 2, this.y + this.height / 2],
+    ];
     ctx.drawImage(
       this.img,
       this.animationimg[this.index],
