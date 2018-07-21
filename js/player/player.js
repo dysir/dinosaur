@@ -32,7 +32,7 @@ export default class Player{
   drawToCanvas(ctx){
     let length = this.animationimg.length;
 
-    if (databus.frame % databus.runspeed==0 ){
+    if (databus.frame!=0 && databus.frame % databus.runspeed==0 ){
       this.index++;
     }
     if (this.index >= length) {
@@ -61,6 +61,7 @@ export default class Player{
       [this.x + this.width / 4, this.y + this.height - 2],
       [this.x + 2, this.y + this.height / 2],
     ];
+    
     ctx.drawImage(
       this.img,
       this.animationimg[this.index],
@@ -79,7 +80,8 @@ export default class Player{
     canvas.addEventListener('touchstart',this.jump.bind(this));
   }
   jump(e){
-    this.jobj.run = true;
+    this.jobj.ttl = databus.jumpsecond;
+    this.jobj.runf();
     if(!this.play){
       this.play = setInterval(this.frameloop.bind(this) , 1000/60);
     }

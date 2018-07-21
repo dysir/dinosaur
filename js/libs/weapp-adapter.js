@@ -546,10 +546,13 @@
 	    key: 'removeEventListener',
 	    value: function removeEventListener(type, listener) {
 	      var listeners = _events.get(this)[type]
-
+        console.log("移除执行");
+        console.log(listeners);
 	      if (listeners && listeners.length > 0) {
 	        for (var i = listeners.length; i--; i > 0) {
 	          if (listeners[i] === listener) {
+              console.log("溢出了时间");
+
 	            listeners.splice(i, 1)
 	            break
 	          }

@@ -1,8 +1,5 @@
 import BaseSprite from "../base/basesprite.js";
 import DataBus from "../databus.js";
-const screenWidth = window.innerWidth
-const screenHeight = window.innerHeight
-
 let databus = new DataBus();
 export default class BackGround{
   constructor(ctx){
@@ -35,40 +32,40 @@ export default class BackGround{
       }
     }
     ctx.fillStyle = "rgb(" + this.bgcolor + "," + this.bgcolor + "," + this.bgcolor +")";
-    ctx.fillRect(0, 0, screenWidth, screenHeight);
+    ctx.fillRect(0, 0, databus.screenWidth, databus.screenHeight);
 
     ctx.drawImage(
       this.img,
       0,
       55,
-      screenWidth+1,
+      databus.screenWidth+1,
       50,
       this.startx,
       databus.waterlevel+38,
-      screenWidth+1,
+      databus.screenWidth+1,
       50
     );
     ctx.drawImage(
       this.img,
       0,
       55,
-      screenWidth+1,
+      databus.screenWidth+1,
       50,
-      this.startx + screenWidth,
+      this.startx + databus.screenWidth,
       databus.waterlevel + 38,
-      screenWidth+1,
+      databus.screenWidth+1,
       50
     );
     this.startx -= databus.gamespeed;
-    databus.score += databus.gamespeed;
+
     this.changescro(ctx)
-    if (this.startx < -screenWidth){
+    if (this.startx < -databus.screenWidth){
       this.startx = 0;
     }
   }
 
   changescro(ctx){
     ctx.fillStyle = "#000000";
-    ctx.fillText("分值:"+parseInt(databus.score/10), screenWidth-100, 60);
+    ctx.fillText("分值:" + parseInt(databus.score), databus.screenWidth-100, 60);
   }
 }

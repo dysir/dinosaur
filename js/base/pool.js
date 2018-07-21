@@ -27,11 +27,12 @@ export default class Pool {
    */
   getItemByClass(name, className) {
     let pool = this.getPoolBySign(name)
+    console.log("创建" + name + ":" + this.getPoolBySign(name).length);
 
     let result = (pool.length
       ? pool.shift()
       : new className())
-
+    console.log("创建后" + name + ":" + this.getPoolBySign(name).length);
     return result
   }
 
@@ -41,5 +42,6 @@ export default class Pool {
    */
   recover(name, instance) {
     this.getPoolBySign(name).push(instance)
+    console.log("回收及长度"+name + ":" + this.getPoolBySign(name).length);
   }
 }

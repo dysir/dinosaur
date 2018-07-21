@@ -1,8 +1,5 @@
 import DataBus from "../databus.js"
-import Pool from "../base/pool.js"
 import BaseSprite from "../base/basesprite.js";
-const screenWidth = window.innerWidth
-const screenHeight = window.innerHeight
 let databus = new DataBus();
 
 export default class Bird {
@@ -11,14 +8,13 @@ export default class Bird {
     this.img = BaseSprit;
     this.visible = false;
     this.treelist = [
-      [132, 6, 50, 35, screenWidth, 180, 50, 35],
-      [178, 6, 50, 35, screenWidth, 180, 50, 35],
+      [132, 6, 50, 35, databus.screenWidth, 185, 50, 35],
+      [178, 6, 50, 35, databus.screenWidth, 185, 50, 35],
     ];
     this.current =0;
     this.x = this.treelist[this.current][4];
     this.y = this.treelist[this.current][5];
     this.width = this.treelist[this.current][2];
-    this.pool = new Pool();
     this.linelist = [];
   }
 
@@ -60,13 +56,13 @@ export default class Bird {
     this.treelist[1][4] = this.x;
     if (this.x + this.width < 0) {
       this.visible = false;
-
-
-      this.treelist[0][5] = this.x;
-      this.treelist[1][5] = this.x;
-
+      this.x = databus.screenWidth;
+      parseInt(Math.random() * 2) == 1 ? this.y = 185 : this.y= 160;
+      this.treelist[0][5] = this.y;
+      this.treelist[1][5] = this.y;
+      console.log(this.treelist[1][5]);
       databus.gtreelist.shift();
-      this.pool.recover("bird", this);
+      databus.pool.recover("bird", this);
     }
   }
 

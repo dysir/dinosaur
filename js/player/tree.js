@@ -1,8 +1,6 @@
 import DataBus from "../databus.js"
-import Pool from "../base/pool.js"
 import BaseSprite from "../base/basesprite.js";
-const screenWidth = window.innerWidth
-const screenHeight = window.innerHeight
+
 let databus = new DataBus();
 
 export default class Tree {
@@ -36,12 +34,11 @@ export default class Tree {
     }else{
       this.current[5] = 200;      
     }
-    this.current[4] = screenWidth;
+    this.current[4] = databus.screenWidth;
 
     this.x = this.current[4];
     this.y = this.current[5];
     this.width = this.current[2];
-    this.pool = new Pool();
     this.linelist = [];
   }
 
@@ -70,8 +67,18 @@ export default class Tree {
       let index1 = parseInt(Math.random() * this.treelist.length);
       let index2 = parseInt(Math.random() * this.treelist[index1].length);
       this.current = this.treelist[index1][index2];
+
+      if (index1 == 0) {
+        this.current[5] = 215;
+      } else {
+        this.current[5] = 200;
+      }
+
+      this.x = databus.screenWidth;
+      this.current[4] = this.x;
+      this.width = this.current[2];
       databus.gtreelist.shift();
-      this.pool.recover("tree" , this);
+      databus.pool.recover("tree" , this);
     }
   }
 
